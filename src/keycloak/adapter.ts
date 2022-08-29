@@ -180,12 +180,20 @@ class RNAdapter implements KeycloakAdapter {
     params.set('client_id', this.client.clientId!);
     params.set('scope', scope ?? 'openid');
 
+    let formBody = [];
+    for (const [key, value] of params) {
+      const encodedKey = encodeURIComponent(key);
+      const encodedValue = encodeURIComponent(value);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    const formBodyString = formBody.join('&');
+
     const loginRes = await fetch(tokenEndpointUrl, {
       method: 'POST',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
       },
-      body: params,
+      body: formBodyString,
     });
     if (!loginRes.ok) throw new Error('Login failed');
     const tokens = await loginRes.json();
