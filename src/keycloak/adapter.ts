@@ -167,6 +167,35 @@ class RNAdapter implements KeycloakAdapter {
     return (await tokenRes.json()) as FetchTokenResponse;
   }
 
+  async loginWithPasswordGrant(
+    username: string,
+    password: string,
+    scope?: string
+  ): Promise<void> {
+    const tokenEndpointUrl = this.client.endpoints!.token();
+    const params = new Map<string, string>();
+    params.set('username', username);
+    params.set('password', password);
+    params.set('grant_type', 'password');
+    params.set('client_id', this.client.clientId!);
+    params.set('scope', scope ?? 'openid');
+
+    const loginRes = await fetch(tokenEndpointUrl, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
+      },
+      body: params,
+    });
+    if (!loginRes.ok) throw new Error('Login failed');
+    const tokens = await loginRes.json();
+    this.client.setToken(
+      tokens.access_token,
+      tokens.refresh_token,
+      tokens.id_token
+    );
+  }
+
   async fetchUserProfile(
     profileUrl: string,
     token: string

@@ -1559,9 +1559,9 @@
   dependencies:
     react-fast-compare "^3.2.0"
 
-"@react-keycloak/keycloak-ts@../keycloak-ts/react-keycloak-keycloak-ts-0.2.4.tgz":
-  version "0.2.4"
-  resolved "../keycloak-ts/react-keycloak-keycloak-ts-0.2.4.tgz#c235ffc4f10daed394a65cbea9d3dccea143fc19"
+"@react-keycloak/keycloak-ts@../keycloak-ts/react-keycloak-keycloak-ts-0.2.6.tgz":
+  version "0.2.6"
+  resolved "../keycloak-ts/react-keycloak-keycloak-ts-0.2.6.tgz#3baa67d7729957550f80086c696a2ce878618678"
   dependencies:
     base64-js "^1.3.1"
     js-sha256 "^0.9.0"
